@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI, {})
 .then(() => { console.log('Connected to the database') })
 .catch((error) => { console.log('Failed to connect to the database', error) });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: __dirname });
