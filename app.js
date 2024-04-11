@@ -41,20 +41,6 @@ app.get('/api/recipes', async (req, res) => {
     }
 });
 
-//show a single recipe by id
-app.get('/api/recipes/:id', async (req, res) => {
-    try {
-        const recipe = await getRecipeById(req.params.id);
-        if (recipe) {
-            res.json(recipe);
-        } else {
-            res.status(404).json({ message: 'Recipe not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
 //show a single recipe by title
 app.get('/api/recipes/:title', async (req, res) => {
     try {
