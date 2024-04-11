@@ -39,7 +39,7 @@ git clone https://github.com/Abshir112/Lab1_fullstack.git
 2. Environment Variables
 Create a `.env` file in the root directory of the project with the following environment variables:
 ```sh
-PORT=3000
+PORT=5000
 MONGODB_URI=<your_mongodb_uri>
 ```
 
