@@ -28,7 +28,6 @@ const recipeSchema = new Schema({
 export const Recipe = mongoose.model('Recipe', recipeSchema);
 
 
-
 // Method to get all recipes
 export const getAllRecipes = async () => {
     try {
@@ -52,16 +51,6 @@ export const createRecipe = async (title, ingredients, instructions, cookingTime
         return savedRecipe;
     } catch (error) {
         throw new Error('Failed to create recipe');
-    }
-};
-
-// Method to get a recipe by ID
-export const getRecipeById = async (id) => {
-    try {
-        const recipe = await Recipe.findById(id);
-        return recipe;
-    } catch (error) {
-        throw new Error('Failed to get recipe');
     }
 };
 
