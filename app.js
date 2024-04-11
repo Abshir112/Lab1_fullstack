@@ -4,14 +4,15 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 //import { recipes } from './recipeStore.js';
-import {getAllRecipes, getRecipeByTitle, createRecipe, updateRecipeById, deleteRecipeById} from './models/recipe.js';
+import {getAllRecipes, getRecipeByTitle, 
+    createRecipe, updateRecipeById, deleteRecipeById} from './models/recipe.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Create a new Express application
 const app = express();
-app.use(express.static('public'));
+app.use(express.static('src'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,9 +25,11 @@ mongoose.connect(process.env.MONGODB_URI, {})
 
 const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: __dirname });
-    });
+// app.get('/', (req, res) => {
+//     res.sendFile('index.html', { root: __dirname });
+//     });
+
+
 
 //show all recipes
 app.get('/api/recipes', async (req, res) => {
@@ -38,6 +41,19 @@ app.get('/api/recipes', async (req, res) => {
     }
 });
 
+//show a single recipe by id
+app.get('/api/recipes/:id', async (req, res) => {
+    try {
+        const recipe = await getRecipeById(req.params.id);
+        if (recipe) {
+            res.json(recipe);
+        } else {
+            res.status(404).json({ message: 'Recipe not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 //show a single recipe by title
 app.get('/api/recipes/:title', async (req, res) => {
@@ -56,8 +72,8 @@ app.get('/api/recipes/:title', async (req, res) => {
 //add a new recipe
 app.post('/api/recipes', async (req, res) => {
     try {
-        const { title, description, ingredients } = req.body;
-        const recipe = await createRecipe(title, description, ingredients);
+        const { title, ingredients, instructions, cookingTime } = req.body;
+        const recipe = await createRecipe(title, ingredients, instructions, cookingTime);
         res.status(201).json(recipe);
     } catch (error) {
         if (error.code === 11000) { // MongoDB duplicate key error
