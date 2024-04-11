@@ -9,14 +9,19 @@ const recipeSchema = new Schema({
         required: true,
         unique: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
     ingredients: {
         type: [String],
         required: true,
     },
+    instructions: {
+        type: String,
+        required: true,
+    },
+    cookingTime: {
+        type: Number,
+        required: true,
+    },
+   
 });
 
 // 4. Create a model for the recipes
@@ -35,17 +40,28 @@ export const getAllRecipes = async () => {
 };
 
 // Method to create a new recipe
-export const createRecipe = async (title, description, ingredients) => {
+export const createRecipe = async (title, ingredients, instructions, cookingTime) => {
     try {
         const recipe = new Recipe({
             title,
-            description,
-            ingredients
+            ingredients,
+            instructions,
+            cookingTime,
         });
         const savedRecipe = await recipe.save();
         return savedRecipe;
     } catch (error) {
         throw new Error('Failed to create recipe');
+    }
+};
+
+// Method to get a recipe by ID
+export const getRecipeById = async (id) => {
+    try {
+        const recipe = await Recipe.findById(id);
+        return recipe;
+    } catch (error) {
+        throw new Error('Failed to get recipe');
     }
 };
 
