@@ -157,7 +157,7 @@ function deleteRecipe(id) {
         return;
     }
 
-        // Optimistically remove the recipe from the UI
+    // remove the recipe from the UI
     const rowToDelete = document.querySelector(`tr[data-id="${id}"]`);
     if (rowToDelete) {
         rowToDelete.parentNode.removeChild(rowToDelete);
@@ -174,11 +174,10 @@ function deleteRecipe(id) {
             fetchRecipes();
             alert('Recipe not found or delete failed.');
         }
-        // No need to explicitly refresh the recipes list here as it's already updated optimistically
+        
     })
     .catch(error => {
         console.error('Error deleting recipe:', error);
-        // Revert optimistic UI update on error
         fetchRecipes();
     });
 }

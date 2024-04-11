@@ -74,7 +74,7 @@ h1, h2 {
 }
 
 .table-container {
-    flex: 2; /* Allows the table to take more space */
+    flex: 2; 
 }
 
 .form-container {
@@ -187,7 +187,7 @@ button:hover {
     background-color: #c82333;
 }
 
-/* Optional: Responsive adjustments for the table */
+/* Responsive adjustments for the table */
 @media (max-width: 768px) {
     .recipe-table, .recipe-table-header th, .recipe-row td {
         display: block;
